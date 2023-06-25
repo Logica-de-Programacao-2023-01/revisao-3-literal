@@ -1,11 +1,39 @@
 package q5
 
-//Uma frase é um palíndromo se, após converter todas as letras maiúsculas em letras minúsculas e remover todos os
-//caracteres não alfanuméricos, ela for lida da mesma forma da esquerda para a direita e vice-versa. Caracteres
-//alfanuméricos incluem letras e números.
-//
-//Dada uma string "s", retorne verdadeiro se for um palíndromo e falso caso contrário.
+import "fmt"
 
-func IsPalindrome(s string) bool {
-	return false
+func ConvertTemperature(temp float64, fromScale string, toScale string) (float64, error) {
+	var finalTemp float64
+	switch fromScale {
+	case "C":
+		switch toScale {
+		case "F":
+			finalTemp = temp*9/5 + 32
+		case "K":
+			finalTemp = temp + 273.15
+		default:
+			return 0, fmt.Errorf("escala inválida")
+		}
+	case "F":
+		switch toScale {
+		case "C":
+			finalTemp = (temp - 32) * 5 / 9
+		case "K":
+			finalTemp = (temp-32)*5/9 + 273.15
+		default:
+			return 0, fmt.Errorf("escala inválida")
+		}
+	case "K":
+		switch toScale {
+		case "C":
+			finalTemp = temp - 273.15
+		case "F":
+			finalTemp = (temp-273.15)*9/5 + 32
+		default:
+			return 0, fmt.Errorf("escala inválida")
+		}
+	default:
+		return 0, fmt.Errorf("escala inválida")
+	}
+	return finalTemp, nil
 }
