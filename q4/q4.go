@@ -1,10 +1,41 @@
 package q4
 
-//Dado um array não vazio de números inteiros "nums", cada elemento aparece duas vezes, exceto um. Encontre esse único
-//elemento.
-//
-//Você deve implementar uma solução com complexidade de tempo linear e sem memória extra.
+import "fmt"
 
-func SingleNumber(nums []int) int {
-	return 0
+func CalculateFinalPrice(basePrice float64, state string, taxCode int) (float64, error) {
+	var precoFinal float64
+	var frete float64
+	var imposto float64
+
+	if basePrice <= 0 {
+		return 0, fmt.Errorf("preço base inválido")
+	}
+
+	switch state {
+	case "SP":
+		frete = 0.10
+	case "RJ":
+		frete = 0.15
+	case "MG":
+		frete = 0.20
+	case "ES":
+		frete = 0.25
+	default:
+		frete = 0.30
+	}
+
+	switch taxCode {
+	case 1:
+		imposto = 0.05
+	case 2:
+		imposto = 0.10
+	case 3:
+		imposto = 0.15
+	default:
+		return 0, fmt.Errorf("imposto não encontrado")
+	}
+
+	precoFinal = basePrice + basePrice*frete + basePrice*imposto
+
+	return precoFinal, nil
 }
